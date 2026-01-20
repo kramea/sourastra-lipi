@@ -391,11 +391,79 @@ body {
   box-shadow: 0 6px 20px rgba(33, 94, 97, 0.4);
 }
 
+.next-button-floating {
+  background: #215E61;
+  color: white;
+  border: none;
+  padding: 16px 40px;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(33, 94, 97, 0.4);
+  display: block;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto 20px auto;
+  animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.next-button-floating:hover {
+  background: #1a4b4e;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(33, 94, 97, 0.5);
+}
+
 .question-card {
   background: white;
   border-radius: 16px;
   padding: 25px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  position: relative;
+}
+
+.next-button-top-right {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: #215E61;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(33, 94, 97, 0.4);
+  animation: pulseButton 2s infinite;
+  z-index: 10;
+}
+
+@keyframes pulseButton {
+  0%, 100% {
+    box-shadow: 0 4px 12px rgba(33, 94, 97, 0.4);
+  }
+  50% {
+    box-shadow: 0 4px 20px rgba(33, 94, 97, 0.7);
+  }
+}
+
+.next-button-top-right:hover {
+  background: #1a4b4e;
+  transform: scale(1.05);
 }
 
 .question-text {

@@ -219,6 +219,11 @@ function WordQuiz({ onBack }) {
       </div>
 
       <div className="question-card">
+        {showFullWord && (
+          <button className="next-button-top-right" onClick={handleNextQuestion}>
+            {currentQuestionIndex < questions.length - 1 ? 'Next →' : 'Finish'}
+          </button>
+        )}
         {currentQuestion.questionType === 'word-to-pronunciation' ? (
           <>
             <div className="question-text">
@@ -257,20 +262,15 @@ function WordQuiz({ onBack }) {
             </div>
 
             {showFullWord && (
-              <>
-                <div className={`word-details ${selectedAnswer.englishPronunciation === currentQuestion.correctAnswer ? 'correct-word' : 'incorrect-word'}`}>
-                  <div className="word-sourashtra">{currentQuestion.fullWord.sourashtra}</div>
-                  <div className="word-pronunciation">
-                    {currentQuestion.fullWord.englishPronunciation} / {currentQuestion.fullWord.tamilPronunciation}
-                  </div>
-                  <div className="word-meaning">
-                    {currentQuestion.fullWord.englishMeaning} / {currentQuestion.fullWord.tamilMeaning}
-                  </div>
+              <div className={`word-details ${selectedAnswer.englishPronunciation === currentQuestion.correctAnswer ? 'correct-word' : 'incorrect-word'}`}>
+                <div className="word-sourashtra">{currentQuestion.fullWord.sourashtra}</div>
+                <div className="word-pronunciation">
+                  {currentQuestion.fullWord.englishPronunciation} / {currentQuestion.fullWord.tamilPronunciation}
                 </div>
-                <button className="next-button-card" onClick={handleNextQuestion}>
-                  {currentQuestionIndex < questions.length - 1 ? 'Next →' : 'Finish'}
-                </button>
-              </>
+                <div className="word-meaning">
+                  {currentQuestion.fullWord.englishMeaning} / {currentQuestion.fullWord.tamilMeaning}
+                </div>
+              </div>
             )}
           </>
         ) : (
@@ -311,20 +311,15 @@ function WordQuiz({ onBack }) {
             </div>
 
             {showFullWord && (
-              <>
-                <div className={`word-details ${selectedAnswer.sourashtra === currentQuestion.correctAnswer ? 'correct-word' : 'incorrect-word'}`}>
-                  <div className="word-sourashtra">{currentQuestion.fullWord.sourashtra}</div>
-                  <div className="word-pronunciation">
-                    {currentQuestion.fullWord.englishPronunciation} / {currentQuestion.fullWord.tamilPronunciation}
-                  </div>
-                  <div className="word-meaning">
-                    {currentQuestion.fullWord.englishMeaning} / {currentQuestion.fullWord.tamilMeaning}
-                  </div>
+              <div className={`word-details ${selectedAnswer.sourashtra === currentQuestion.correctAnswer ? 'correct-word' : 'incorrect-word'}`}>
+                <div className="word-sourashtra">{currentQuestion.fullWord.sourashtra}</div>
+                <div className="word-pronunciation">
+                  {currentQuestion.fullWord.englishPronunciation} / {currentQuestion.fullWord.tamilPronunciation}
                 </div>
-                <button className="next-button-card" onClick={handleNextQuestion}>
-                  {currentQuestionIndex < questions.length - 1 ? 'Next →' : 'Finish'}
-                </button>
-              </>
+                <div className="word-meaning">
+                  {currentQuestion.fullWord.englishMeaning} / {currentQuestion.fullWord.tamilMeaning}
+                </div>
+              </div>
             )}
           </>
         )}
