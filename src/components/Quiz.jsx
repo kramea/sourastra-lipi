@@ -10,6 +10,8 @@ function Quiz({ onBack }) {
   const [score, setScore] = useState(0);
   const [showResult, setShowResult] = useState(false);
   const [quizFinished, setQuizFinished] = useState(false);
+  const [userAnswers, setUserAnswers] = useState([]);
+  const [showReview, setShowReview] = useState(false);
 
   useEffect(() => {
     // Generate quiz on component mount
@@ -36,6 +38,13 @@ function Quiz({ onBack }) {
     if (isCorrect) {
       setScore(score + 1);
     }
+
+    // Store user's answer for review
+    setUserAnswers(prev => [...prev, {
+      question: currentQuestion,
+      userAnswer: answerObj,
+      isCorrect
+    }]);
 
     // Record this attempt for progress tracking
     recordQuizAttempt(currentQuestion.characterId, isCorrect);
@@ -81,6 +90,8 @@ function Quiz({ onBack }) {
     setScore(0);
     setShowResult(false);
     setQuizFinished(false);
+    setUserAnswers([]);
+    setShowReview(false);
   };
 
   if (questions.length === 0) {
@@ -109,11 +120,75 @@ function Quiz({ onBack }) {
             <button className="quiz-button secondary" onClick={onBack}>
               Back to Home
             </button>
+            <button className="quiz-button secondary" onClick={() => setShowReview(!showReview)}>
+              {showReview ? 'Hide Review' : 'Review Answers'}
+            </button>
             <button className="quiz-button primary" onClick={handleTryAgain}>
               Try Again
             </button>
           </div>
         </div>
+
+        {showReview && (
+          <div className="review-section">
+            <h3>Answer Review</h3>
+            {userAnswers.map((item, index) => (
+              <div key={index} className={`review-item ${item.isCorrect ? 'correct' : 'incorrect'}`}>
+                <div className="review-question-number">Question {index + 1}</div>
+                <div className="review-content">
+                  {item.question.questionType === 'char-to-sound' ? (
+                    <>
+                      <div className="review-question">
+                        <span className="review-char">{item.question.question}</span>
+                      </div>
+                      <div className="review-answers">
+                        <div className="review-answer-row">
+                          <span className="review-label">Your answer:</span>
+                          <span className={item.isCorrect ? 'answer-correct' : 'answer-wrong'}>
+                            {item.userAnswer.english} / {item.userAnswer.tamil}
+                          </span>
+                        </div>
+                        {!item.isCorrect && (
+                          <div className="review-answer-row">
+                            <span className="review-label">Correct answer:</span>
+                            <span className="answer-correct">
+                              {item.question.correctAnswer} / {item.question.correctTamil}
+                            </span>
+                          </div>
+                        )}
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <div className="review-question">
+                        <span className="review-sound">{item.question.question} / {item.question.questionTamil}</span>
+                      </div>
+                      <div className="review-answers">
+                        <div className="review-answer-row">
+                          <span className="review-label">Your answer:</span>
+                          <span className={item.isCorrect ? 'answer-correct' : 'answer-wrong'}>
+                            {item.userAnswer.sourashtra}
+                          </span>
+                        </div>
+                        {!item.isCorrect && (
+                          <div className="review-answer-row">
+                            <span className="review-label">Correct answer:</span>
+                            <span className="answer-correct">
+                              {item.question.correctAnswer}
+                            </span>
+                          </div>
+                        )}
+                      </div>
+                    </>
+                  )}
+                </div>
+                <div className="review-status">
+                  {item.isCorrect ? '✓' : '✗'}
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     );
   }
