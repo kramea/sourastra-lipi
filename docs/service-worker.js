@@ -1,4 +1,4 @@
-const CACHE_NAME = 'sourashtra-v1';
+const CACHE_NAME = 'sourashtra-v2';
 const urlsToCache = [
   '/',
   '/index.html',
@@ -7,31 +7,50 @@ const urlsToCache = [
 
 // Install service worker and cache assets
 self.addEventListener('install', (event) => {
+  // Force the waiting service worker to become the active service worker
+  self.skipWaiting();
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then((cache) => cache.addAll(urlsToCache))
   );
 });
 
-// Serve from cache, fallback to network
+// Network-first strategy: try network, fallback to cache
 self.addEventListener('fetch', (event) => {
   event.respondWith(
-    caches.match(event.request)
-      .then((response) => response || fetch(event.request))
+    fetch(event.request)
+      .then((response) => {
+        // Clone the response before caching
+        const responseClone = response.clone();
+        caches.open(CACHE_NAME)
+          .then((cache) => {
+            cache.put(event.request, responseClone);
+          });
+        return response;
+      })
+      .catch(() => {
+        // Network failed, try cache
+        return caches.match(event.request);
+      })
   );
 });
 
-// Clean up old caches
+// Clean up old caches and take control immediately
 self.addEventListener('activate', (event) => {
   event.waitUntil(
-    caches.keys().then((cacheNames) => {
-      return Promise.all(
-        cacheNames.map((cacheName) => {
-          if (cacheName !== CACHE_NAME) {
-            return caches.delete(cacheName);
-          }
-        })
-      );
-    })
+    Promise.all([
+      // Take control of all clients immediately
+      self.clients.claim(),
+      // Delete old caches
+      caches.keys().then((cacheNames) => {
+        return Promise.all(
+          cacheNames.map((cacheName) => {
+            if (cacheName !== CACHE_NAME) {
+              return caches.delete(cacheName);
+            }
+          })
+        );
+      })
+    ])
   );
 });
