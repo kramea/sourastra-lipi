@@ -59,11 +59,11 @@ export const rareVowels = [
 
 // Special characters (h-modifier combinations with valid consonants only)
 export const specialCharacters = [
-  { id: 71, sourashtra: "ꢪꢴ", english: "mha", tamil: "ம\u00B2", category: "special", baseConsonant: "ma", description: "ma + h-modifier" },
-  { id: 72, sourashtra: "ꢥꢴ", english: "nha", tamil: "ந\u00B2", category: "special", baseConsonant: "na", description: "na + h-modifier" },
-  { id: 73, sourashtra: "ꢬꢴ", english: "rha", tamil: "ர\u00B2", category: "special", baseConsonant: "ra", description: "ra + h-modifier" },
-  { id: 74, sourashtra: "ꢭꢴ", english: "lha", tamil: "ல\u00B2", category: "special", baseConsonant: "la", description: "la + h-modifier" },
-  { id: 75, sourashtra: "ꢮꢴ", english: "vha", tamil: "வ\u00B2", category: "special", baseConsonant: "va", description: "va + h-modifier" }
+  { id: 71, sourashtra: "ꢪꢴ", english: "mha", tamil: "ம:", category: "special", baseConsonant: "ma", description: "ma + h-modifier" },
+  { id: 72, sourashtra: "ꢥꢴ", english: "nha", tamil: "ந:", category: "special", baseConsonant: "na", description: "na + h-modifier" },
+  { id: 73, sourashtra: "ꢬꢴ", english: "rha", tamil: "ர:", category: "special", baseConsonant: "ra", description: "ra + h-modifier" },
+  { id: 74, sourashtra: "ꢭꢴ", english: "lha", tamil: "ல:", category: "special", baseConsonant: "la", description: "la + h-modifier" },
+  { id: 75, sourashtra: "ꢮꢴ", english: "vha", tamil: "வ:", category: "special", baseConsonant: "va", description: "va + h-modifier" }
 ];
 
 // Vowel signs (diacritical marks that modify consonants)
