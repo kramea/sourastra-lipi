@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Sourashtra Learning</string>
+    <string name="title_activity_main">Sourashtra Learning</string>
+    <string name="package_name">com.sourashtra.learning</string>
+    <string name="custom_url_scheme">com.sourashtra.learning</string>
+</resources>
