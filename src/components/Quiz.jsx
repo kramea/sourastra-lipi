@@ -128,11 +128,6 @@ function Quiz({ onBack }) {
           Question {currentQuestionIndex + 1} of {questions.length}
         </div>
         <div className="quiz-score">Score: {score}</div>
-        {showResult && (
-          <button className="next-button" onClick={handleNextQuestion}>
-            {currentQuestionIndex < questions.length - 1 ? 'Next →' : 'Finish'}
-          </button>
-        )}
       </div>
 
       <div className="progress-bar">
@@ -181,13 +176,18 @@ function Quiz({ onBack }) {
             </div>
 
             {showResult && (
-              <div className={`feedback ${selectedAnswer.english === currentQuestion.correctAnswer ? 'correct' : 'incorrect'}`}>
-                {selectedAnswer.english === currentQuestion.correctAnswer ? (
-                  <>✓ Correct!</>
-                ) : (
-                  <>✗ Incorrect. The answer is: {currentQuestion.correctAnswer} / {currentQuestion.correctTamil}</>
-                )}
-              </div>
+              <>
+                <div className={`feedback ${selectedAnswer.english === currentQuestion.correctAnswer ? 'correct' : 'incorrect'}`}>
+                  {selectedAnswer.english === currentQuestion.correctAnswer ? (
+                    <>✓ Correct!</>
+                  ) : (
+                    <>✗ Incorrect. The answer is: {currentQuestion.correctAnswer} / {currentQuestion.correctTamil}</>
+                  )}
+                </div>
+                <button className="next-button-card" onClick={handleNextQuestion}>
+                  {currentQuestionIndex < questions.length - 1 ? 'Next →' : 'Finish'}
+                </button>
+              </>
             )}
           </>
         ) : (
@@ -228,13 +228,18 @@ function Quiz({ onBack }) {
             </div>
 
             {showResult && (
-              <div className={`feedback ${selectedAnswer.sourashtra === currentQuestion.correctAnswer ? 'correct' : 'incorrect'}`}>
-                {selectedAnswer.sourashtra === currentQuestion.correctAnswer ? (
-                  <>✓ Correct!</>
-                ) : (
-                  <>✗ Incorrect. The answer is: {currentQuestion.correctAnswer}</>
-                )}
-              </div>
+              <>
+                <div className={`feedback ${selectedAnswer.sourashtra === currentQuestion.correctAnswer ? 'correct' : 'incorrect'}`}>
+                  {selectedAnswer.sourashtra === currentQuestion.correctAnswer ? (
+                    <>✓ Correct!</>
+                  ) : (
+                    <>✗ Incorrect. The answer is: {currentQuestion.correctAnswer}</>
+                  )}
+                </div>
+                <button className="next-button-card" onClick={handleNextQuestion}>
+                  {currentQuestionIndex < questions.length - 1 ? 'Next →' : 'Finish'}
+                </button>
+              </>
             )}
           </>
         )}
