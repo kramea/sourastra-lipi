@@ -39,19 +39,18 @@ function Quiz({ onBack }) {
 
     // Record this attempt for progress tracking
     recordQuizAttempt(currentQuestion.characterId, isCorrect);
+  };
 
-    // Auto-advance to next question after 1.5 seconds
-    setTimeout(() => {
-      if (currentQuestionIndex < questions.length - 1) {
-        setCurrentQuestionIndex(currentQuestionIndex + 1);
-        setSelectedAnswer(null);
-        setShowResult(false);
-      } else {
-        // Quiz finished
-        setQuizFinished(true);
-        saveQuizScore();
-      }
-    }, 1500);
+  const handleNextQuestion = () => {
+    if (currentQuestionIndex < questions.length - 1) {
+      setCurrentQuestionIndex(currentQuestionIndex + 1);
+      setSelectedAnswer(null);
+      setShowResult(false);
+    } else {
+      // Quiz finished
+      setQuizFinished(true);
+      saveQuizScore();
+    }
   };
 
   const saveQuizScore = () => {
@@ -129,6 +128,11 @@ function Quiz({ onBack }) {
           Question {currentQuestionIndex + 1} of {questions.length}
         </div>
         <div className="quiz-score">Score: {score}</div>
+        {showResult && (
+          <button className="next-button" onClick={handleNextQuestion}>
+            {currentQuestionIndex < questions.length - 1 ? 'Next →' : 'Finish'}
+          </button>
+        )}
       </div>
 
       <div className="progress-bar">

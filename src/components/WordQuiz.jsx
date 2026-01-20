@@ -37,20 +37,19 @@ function WordQuiz({ onBack }) {
     if (isCorrect) {
       setScore(score + 1);
     }
+  };
 
-    // Auto-advance to next question after 3 seconds (longer to read the word details)
-    setTimeout(() => {
-      if (currentQuestionIndex < questions.length - 1) {
-        setCurrentQuestionIndex(currentQuestionIndex + 1);
-        setSelectedAnswer(null);
-        setShowResult(false);
-        setShowFullWord(false);
-      } else {
-        // Quiz finished
-        setQuizFinished(true);
-        saveQuizScore();
-      }
-    }, 3000);
+  const handleNextQuestion = () => {
+    if (currentQuestionIndex < questions.length - 1) {
+      setCurrentQuestionIndex(currentQuestionIndex + 1);
+      setSelectedAnswer(null);
+      setShowResult(false);
+      setShowFullWord(false);
+    } else {
+      // Quiz finished
+      setQuizFinished(true);
+      saveQuizScore();
+    }
   };
 
   const saveQuizScore = () => {
@@ -129,6 +128,11 @@ function WordQuiz({ onBack }) {
           Word {currentQuestionIndex + 1} of {questions.length}
         </div>
         <div className="quiz-score">Score: {score}</div>
+        {showResult && (
+          <button className="next-button" onClick={handleNextQuestion}>
+            {currentQuestionIndex < questions.length - 1 ? 'Next →' : 'Finish'}
+          </button>
+        )}
       </div>
 
       <div className="progress-bar">
